@@ -1,6 +1,7 @@
 import React from 'react';
 import Moment from 'moment';
 import { AsyncStorage, SectionList, ScrollView, ActivityIndicator, Text, View } from 'react-native';
+import EventList from './components/EventList';
 
 export default class FetchExample extends React.Component {
 
@@ -83,18 +84,8 @@ export default class FetchExample extends React.Component {
 
         return (
             <ScrollView>
-                <SectionList
-                    style={{padding: 30}}
-                    renderItem={({item, index, section}) => (
-                        <Text key={index}>{item.title}, {item.full_location}, {Moment(item.start).format('h:mm A')} - {Moment(item.end).format('h:mm A')}</Text>
-                    )}
-                    renderSectionHeader={
-                        ({section: {title}}) => (
-                            <Text style={{fontWeight: 'bold'}}>{title}</Text>
-                        )
-                    }
+                <EventList
                     sections={sections}
-                    keyExtractor={(item, index) => item + index}
                 />
             </ScrollView>
         );
