@@ -6,7 +6,7 @@ export default class FetchExample extends React.Component {
 
   constructor(props){
     super(props);
-    this.state ={ isLoading: true}
+    this.state = {isLoading: true}
   }
 
   componentDidMount(){
@@ -14,7 +14,6 @@ export default class FetchExample extends React.Component {
     return fetch(url)
       .then(response => response.json())
       .then(responseJson => {
-
         this.setState({
           isLoading: false,
           schedule: responseJson,
@@ -56,8 +55,6 @@ export default class FetchExample extends React.Component {
         });
     }
 
-    //return (<Text style={{padding: 50}}>{days.length}</Text>)
-
     return (
         <ScrollView>
             <SectionList
@@ -74,19 +71,6 @@ export default class FetchExample extends React.Component {
                 keyExtractor={(item, index) => item + index}
             />
         </ScrollView>
-    );
-
-    return(
-      <View style={{flex: 1, padding:50}}>
-        <FlatList
-          data={this.state.schedule}
-          renderItem={({item}) => { 
-              let start = Moment(item.start).format('h A')
-              return <Text>{item.title}, {item.full_location}, {start}</Text> 
-          }}
-          keyExtractor={(item, index) => item.id.toString()}
-        />
-      </View>
     );
   }
 }
