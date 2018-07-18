@@ -12,7 +12,6 @@ export default class EventList extends React.Component {
 	render() {
 		return (
 			<SectionList
-                    style={{padding: 30}}
                     renderItem={this.renderItem}
                     renderSectionHeader={this.renderSectionHeader}
                     sections={this.props.sections}

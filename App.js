@@ -2,6 +2,7 @@ import React from 'react';
 import Moment from 'moment';
 import { AsyncStorage, SectionList, ScrollView, ActivityIndicator, Text, View } from 'react-native';
 import EventList from './components/EventList';
+import BaseApp from './components/BaseApp';
 
 export default class FetchExample extends React.Component {
 
@@ -83,11 +84,13 @@ export default class FetchExample extends React.Component {
         }
 
         return (
-            <ScrollView>
-                <EventList
-                    sections={sections}
-                />
-            </ScrollView>
+            <BaseApp>
+              <ScrollView>
+                  <EventList
+                      sections={sections}
+                  />
+              </ScrollView>
+            </BaseApp>
         );
     }
 }
