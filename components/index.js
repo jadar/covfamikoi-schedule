@@ -4,14 +4,16 @@ import { AppRegistry, AsyncStorage, SectionList, ScrollView, ActivityIndicator, 
 import { connect } from 'react-redux';
 import { actionCreators } from '../store';
 
-const mapStateToProps = state => ({
-  schedule: state.schedule,
-  isLoading: state.isLoading,
-});
+const mapStateToProps = state => {
+    return {
+        schedule: state.schedule,
+        isLoading: state.isLoading,
+    };
+};
 
 class Schedule extends React.Component {
     onFetch = responseJson => {
-        const {dispatch} = this.props;
+        const { dispatch } = this.props;
         dispatch(actionCreators.fetch(responseJson));
     }
 
@@ -21,7 +23,7 @@ class Schedule extends React.Component {
             .then(response => response.json())
             .then(this.onFetch)
             .catch(error => {
-                console.error(error);
+                // console.error(error);
             });
     }
 
@@ -30,8 +32,7 @@ class Schedule extends React.Component {
     }
 
     render() {
-
-        const {isLoading, schedule} = this.props;
+        const { isLoading, schedule } = this.props;
 
         if (isLoading){
             return(

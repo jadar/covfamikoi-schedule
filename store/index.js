@@ -6,7 +6,10 @@ export const types = {
 // Helper functions to dispatch actions, optionally with payloads
 export const actionCreators = {
   fetch: content => {
-    return {type: types.FETCH, payload: content}
+    return {
+        type: types.FETCH, 
+        payload: content
+    }
   },
 }
 
@@ -24,16 +27,22 @@ const initialState = {
 //   call reducer() with no state on startup, and we are expected to
 //   return the initial state of the app in this case.
 export const reducer = (state = initialState, action) => {
-    const {todos} = state
-    const {type, payload} = action
+    // const { todos } = state
+    const { type, payload } = action
 
     switch (type) {
         case types.FETCH: {
-            return {
+            const s = {
                 ...state,
                 schedule: payload,
                 isLoading: false,
             }
+            return s;
         }
+        default:
+            return {
+                ...state
+            };
     }
 }
+
