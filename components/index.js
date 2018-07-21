@@ -1,5 +1,6 @@
 import React from 'react';
 import Moment from 'moment';
+import EventList from './EventList';
 import { AppRegistry, AsyncStorage, SectionList, ScrollView, ActivityIndicator, Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store';
@@ -34,9 +35,9 @@ class Schedule extends React.Component {
     render() {
         const { isLoading, schedule } = this.props;
 
-        if (isLoading){
-            return(
-                <View style={{flex: 1, padding: 50}}>
+        if (isLoading) {
+            return (
+                <View style={{flex: 1}}>
                     <ActivityIndicator/>
                 </View>
             )
@@ -61,19 +62,9 @@ class Schedule extends React.Component {
 
         return (
             <ScrollView>
-                <SectionList
-                    style={{padding: 30}}
-                    renderItem={({item, index, section}) => (
-                        <Text key={index}>{item.title}, {item.full_location}, {Moment(item.start).format('h:mm A')} - {Moment(item.end).format('h:mm A')}</Text>
-                    )}
-                    renderSectionHeader={
-                        ({section: {title}}) => (
-                            <Text style={{fontWeight: 'bold'}}>{title}</Text>
-                        )
-                    }
-                    sections={sections}
-                    keyExtractor={(item, index) => item + index}
-                />
+                <EventList
+                      sections={sections}
+                  />
             </ScrollView>
         );
     }

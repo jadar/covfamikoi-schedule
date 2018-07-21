@@ -39,11 +39,13 @@ export default class App extends React.Component {
     render() {
         const store = this.store;
         return (
-            <Provider store={store}>
-                <PersistGate loading={null} persistor={persistor}>
-                    <Schedule />
-                </PersistGate>
-            </Provider>
+            <BaseApp>
+                <Provider store={store}>
+                    <PersistGate loading={null} persistor={persistor}>
+                        <Schedule />
+                    </PersistGate>
+                </Provider>
+            </BaseApp>
         );
     }
 }
