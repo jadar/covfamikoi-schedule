@@ -1,13 +1,14 @@
 // The types of actions that you can dispatch to modify the state of the store
 export const types = {
-  FETCH: 'FETCH',
+  DID_RELOAD_EVENT_LIST: 'DID_RELOAD_EVENT_LIST',
+
 }
 
 // Helper functions to dispatch actions, optionally with payloads
 export const actionCreators = {
-  fetch: content => {
+  reload: content => {
     return {
-        type: types.FETCH, 
+        type: types.DID_RELOAD_EVENT_LIST, 
         payload: content
     }
   },
@@ -16,8 +17,8 @@ export const actionCreators = {
 // Initial state of the store
 const initialState = {
     schedule: [],
-    isLoading: true,
-}
+    isLoading: true
+};
 
 // Function to handle actions and update the state of the store.
 // Notes:
@@ -27,22 +28,18 @@ const initialState = {
 //   call reducer() with no state on startup, and we are expected to
 //   return the initial state of the app in this case.
 export default function (state = initialState, action) {
-    // const { todos } = state
     const { type, payload } = action
 
-    switch (type) {
-        case types.FETCH: {
-            const s = {
-                ...state,
-                schedule: payload,
-                isLoading: false,
-            }
-            return s;
-        }
-        default:
-            return {
-                ...state
-            };
-    }
+    if (action.type === types.DID_RELOAD_EVENT_LIST) {
+        return {
+            ...state,
+            schedule: payload,
+            isLoading: false
+        };
+    } //else if (action.type == 'persist/REHYDRATE') {
+    //     return { ...state, schedule: action.payload.schedule, isLoading: false }
+    // }
+
+    return { ...state };
 }
 

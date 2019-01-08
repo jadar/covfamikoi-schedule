@@ -6,14 +6,15 @@ import React from 'react';
 
 /* redux */
 
-import { createStore } from 'redux';
+import { compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 /* redux-persist */
 
-import { persistStore, persistCombineReducers } from 'redux-persist';
+import { autoRehydrate, persistStore, persistCombineReducers } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage'; // or whatever storage you are using
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
 /* app */
 
@@ -24,6 +25,7 @@ import primaryReducer from './reducers'; // Import the reducer and create a stor
 const config = {
     key: 'primary',
     storage: storage,
+    stateReconciler: hardSet,
 };
 
 

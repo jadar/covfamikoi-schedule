@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 class Schedule extends React.Component {
     onFetch = responseJson => {
         const { dispatch } = this.props;
-        dispatch(actionCreators.fetch(responseJson));
+        dispatch(actionCreators.reload(responseJson));
     }
 
     fetchFromServer() {
@@ -26,7 +26,8 @@ class Schedule extends React.Component {
             .then(response => response.json())
             .then(this.onFetch)
             .catch(error => {
-                console.error(error);
+
+                // console.error(error);
             });
     }
 
