@@ -22,6 +22,8 @@ import Schedule from './components/';
 import BaseApp from './components/BaseApp';
 import primaryReducer from './reducers'; // Import the reducer and create a store
 
+import { createStackNavigator } from 'react-navigation';
+
 const config = {
     key: 'primary',
     storage: storage,
@@ -39,7 +41,7 @@ const store = createStore(persistedReducer);
 // Enable persistence
 const persistor = persistStore(store);
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.store = store;
@@ -59,3 +61,9 @@ export default class App extends React.Component {
         );
     }
 }
+
+export default createStackNavigator({
+  Home: {
+    screen: HomeScreen
+  }
+});
