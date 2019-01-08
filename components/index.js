@@ -3,12 +3,14 @@ import Moment from 'moment';
 import EventList from './EventList';
 import { AppRegistry, AsyncStorage, SectionList, ScrollView, ActivityIndicator, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store';
+import { reducers } from '../reducers';
+import { actionCreators } from '../reducers/eventList';
 
 const mapStateToProps = state => {
+    // console.log("state", state);
     return {
-        schedule: state.schedule,
-        isLoading: state.isLoading,
+        schedule: state.eventList.schedule,
+        isLoading: state.eventList.isLoading,
     };
 };
 
@@ -24,7 +26,7 @@ class Schedule extends React.Component {
             .then(response => response.json())
             .then(this.onFetch)
             .catch(error => {
-                // console.error(error);
+                console.error(error);
             });
     }
 
@@ -35,6 +37,8 @@ class Schedule extends React.Component {
     render() {
         const { isLoading, schedule } = this.props;
 
+        console.log("schedule", this.props["schedule"]);
+
         if (isLoading) {
             return (
                 <View style={{flex: 1}}>
@@ -44,8 +48,6 @@ class Schedule extends React.Component {
         }
 
         Moment.locale('en');
-
-        console.log("PROPS.KEYS", Object.keys(this.props));
 
         let days = schedule.map(item => Moment(item.start).format('YYYY-MM-DD'));
         days = [...new Set(days)];  // unique

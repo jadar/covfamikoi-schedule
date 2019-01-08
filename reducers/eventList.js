@@ -26,7 +26,7 @@ const initialState = {
 // - We set \`state\` to our \`initialState\` by default. Redux will
 //   call reducer() with no state on startup, and we are expected to
 //   return the initial state of the app in this case.
-export const reducer = (state = initialState, action) => {
+export default function (state = initialState, action) {
     // const { todos } = state
     const { type, payload } = action
 

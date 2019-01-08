@@ -1,27 +1,33 @@
 'use strict';
 
+/* react */
+
 import React from 'react';
 
-import { createStore, combineReducers } from 'redux';
+/* redux */
+
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { persistStore, persistReducer, REHYRATE, PURGE, persistCombineReducers } from 'redux-persist';
+
+/* redux-persist */
+
+import { persistStore, persistCombineReducers } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage'; // or whatever storage you are using
+
+/* app */
+
 import Schedule from './components/';
 import BaseApp from './components/BaseApp';
+import primaryReducer from './reducers'; // Import the reducer and create a store
 
 const config = {
     key: 'primary',
-    storage,
+    storage: storage,
 };
 
-// Import the reducer and create a store
-import { reducer } from './store/';
-
-// let combinedReducer = persistCombineReducers(config, [reducer]);
-let combinedReducer = reducer;
-
-const persistedReducer = persistReducer(config, combinedReducer);
+const persistedReducer = persistCombineReducers(config, primaryReducer);
+// console.log("Persisted reducer: " + persistedReducer);
 
 // Add the autoRehydrate middleware to your redux store
 const store = createStore(persistedReducer);
