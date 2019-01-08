@@ -1,20 +1,23 @@
 import React from 'react';
 import Moment from 'moment';
+import EventList from './EventList';
 import { AppRegistry, AsyncStorage, SectionList, ScrollView, ActivityIndicator, Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { actionCreators } from '../store';
+import { reducers } from '../reducers';
+import { actionCreators } from '../reducers/eventList';
 
 const mapStateToProps = state => {
+    // console.log("state", state);
     return {
-        schedule: state.schedule,
-        isLoading: state.isLoading,
+        schedule: state.eventList.schedule,
+        isLoading: state.eventList.isLoading,
     };
 };
 
 class Schedule extends React.Component {
     onFetch = responseJson => {
         const { dispatch } = this.props;
-        dispatch(actionCreators.fetch(responseJson));
+        dispatch(actionCreators.reload(responseJson));
     }
 
     fetchFromServer() {
@@ -23,6 +26,7 @@ class Schedule extends React.Component {
             .then(response => response.json())
             .then(this.onFetch)
             .catch(error => {
+
                 // console.error(error);
             });
     }
@@ -34,17 +38,17 @@ class Schedule extends React.Component {
     render() {
         const { isLoading, schedule } = this.props;
 
-        if (isLoading){
-            return(
-                <View style={{flex: 1, padding: 50}}>
+        console.log("schedule", this.props["schedule"].slice(0,2), "...");
+
+        if (isLoading) {
+            return (
+                <View style={{flex: 1}}>
                     <ActivityIndicator/>
                 </View>
             )
         }
 
         Moment.locale('en');
-
-        console.log("PROPS.KEYS", Object.keys(this.props));
 
         let days = schedule.map(item => Moment(item.start).format('YYYY-MM-DD'));
         days = [...new Set(days)];  // unique
@@ -61,19 +65,9 @@ class Schedule extends React.Component {
 
         return (
             <ScrollView>
-                <SectionList
-                    style={{padding: 30}}
-                    renderItem={({item, index, section}) => (
-                        <Text key={index}>{item.title}, {item.full_location}, {Moment(item.start).format('h:mm A')} - {Moment(item.end).format('h:mm A')}</Text>
-                    )}
-                    renderSectionHeader={
-                        ({section: {title}}) => (
-                            <Text style={{fontWeight: 'bold'}}>{title}</Text>
-                        )
-                    }
-                    sections={sections}
-                    keyExtractor={(item, index) => item + index}
-                />
+                <EventList
+                      sections={sections}
+                  />
             </ScrollView>
         );
     }
