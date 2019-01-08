@@ -14,9 +14,7 @@ export default class Event extends React.Component {
         return (
             <View
                 style={{
-                    // flexDirection: 'row',
                     padding: 16,
-                    // height: 44,
                 }}>
                 <Text>{item.title}</Text>
                 <Text>{item.full_location}</Text>

@@ -1,13 +1,12 @@
 import React from 'react';
 import Moment from 'moment';
 import EventList from './EventList';
-import { AppRegistry, AsyncStorage, SectionList, ScrollView, ActivityIndicator, Text, View } from 'react-native';
+import { ScrollView, ActivityIndicator, View } from 'react-native';
 import { connect } from 'react-redux';
 import { reducers } from '../reducers';
 import { actionCreators } from '../reducers/eventList';
 
 const mapStateToProps = state => {
-    // console.log("state", state);
     return {
         schedule: state.eventList.schedule,
         isLoading: state.eventList.isLoading,
@@ -26,8 +25,7 @@ class Schedule extends React.Component {
             .then(response => response.json())
             .then(this.onFetch)
             .catch(error => {
-
-                // console.error(error);
+                 console.error(error);
             });
     }
 
