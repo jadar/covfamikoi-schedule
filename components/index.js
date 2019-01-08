@@ -37,7 +37,7 @@ class Schedule extends React.Component {
     render() {
         const { isLoading, schedule } = this.props;
 
-        // console.log("schedule", this.props["schedule"]);
+        console.log("schedule", this.props["schedule"].slice(0,2), "...");
 
         if (isLoading) {
             return (
