@@ -26,6 +26,8 @@ const config = {
     storage: storage,
 };
 
+
+// console.log()
 const persistedReducer = persistCombineReducers(config, primaryReducer);
 // console.log("Persisted reducer: " + persistedReducer);
 

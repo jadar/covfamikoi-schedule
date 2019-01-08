@@ -21,7 +21,7 @@ export default class EventList extends React.Component {
     }
 
     renderItem({item, index, section}) {
-        console.log(item);
+        // console.log(item);
         return (
             <Event item={item}></Event>
             )
