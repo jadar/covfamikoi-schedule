@@ -1,10 +1,12 @@
 'use strict';
 
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import Moment from 'moment';
+import { withNavigation } from 'react-navigation';
+//import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-export default class Event extends React.Component {
+class Event extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -19,7 +21,14 @@ export default class Event extends React.Component {
                 <Text>{item.title}</Text>
                 <Text>{item.full_location}</Text>
                 <Text>{Moment(item.start).format('h:mm A')} - {Moment(item.end).format('h:mm A')}</Text>
+                <Button
+                  title="Go to Details"
+                  onPress={() => this.props.navigation.navigate('Details')}
+                />
             </View>
+
         );
     }
 }
+
+export default withNavigation(Event);

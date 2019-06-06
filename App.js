@@ -19,8 +19,11 @@ import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 /* app */
 
 import Schedule from './components/';
+import DetailsScreen from './components/Details';
 import BaseApp from './components/BaseApp';
 import primaryReducer from './reducers'; // Import the reducer and create a store
+
+import { Button } from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
 
@@ -54,7 +57,13 @@ class HomeScreen extends React.Component {
             <BaseApp>
                 <Provider store={store}>
                     <PersistGate loading={null} persistor={persistor}>
-                        <Schedule />
+                        <Button
+                          title="Go to Details"
+                          onPress={() => this.props.navigation.navigate('Details')}
+                        />
+                        <Schedule 
+                           navigation={this.props.navigation}
+                        />
                     </PersistGate>
                 </Provider>
             </BaseApp>
@@ -63,7 +72,17 @@ class HomeScreen extends React.Component {
 }
 
 export default createStackNavigator({
-  Home: {
-    screen: HomeScreen
-  }
+    Home: HomeScreen,
+    Details: DetailsScreen,
+  },
+    //{
+  //Home: {
+    //screen: HomeScreen
+  //},
+  //Details: {
+    //screen: DetailsScreen,
+  //},
+//},{
+   {
+  initialRouteName: 'Home',
 });
