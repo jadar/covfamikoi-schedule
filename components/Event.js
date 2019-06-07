@@ -23,7 +23,9 @@ class Event extends React.Component {
                 <Text>{Moment(item.start).format('h:mm A')} - {Moment(item.end).format('h:mm A')}</Text>
                 <Button
                   title="Go to Details"
-                  onPress={() => this.props.navigation.navigate('Details')}
+                  onPress={() => 
+                      this.props.navigation.navigate('Details', {item})
+                  }
                 />
             </View>
 
