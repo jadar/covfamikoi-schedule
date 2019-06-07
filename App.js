@@ -62,7 +62,7 @@ class HomeScreen extends React.Component {
         //require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf')
         // console.log(MaterialIcons.font);
         // this is most definitely a bug. Key must capitalized.
-        await Font.loadAsync({...FontAwesome.font, 'Ionicons': Ionicons.font.ionicons, 'MaterialIcons': MaterialIcons.font.material});
+        await Font.loadAsync({...FontAwesome.font, 'Ionicons': Ionicons.font.ionicons, 'Material Icons': MaterialIcons.font.material});
     }
 
     render() {
