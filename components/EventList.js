@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Text, View, SectionList, StyleSheet } from 'react-native';
-import Event from './Event';
+import EventItem from './EventItem';
 import { RectButton, NativeViewGestureHandler } from 'react-native-gesture-handler';
 // import { withNavigation } from 'react-navigation';
 
@@ -26,7 +26,7 @@ export default class EventList extends React.Component {
 
     renderItem({item, index, section}) {
         return (
-            <Event item={item}></Event>
+            <EventItem item={item}></EventItem>
             )
     }
 

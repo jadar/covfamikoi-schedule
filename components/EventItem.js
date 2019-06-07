@@ -8,7 +8,7 @@ import { withNavigation } from 'react-navigation';
 import { RectButton, NativeViewGestureHandler } from 'react-native-gesture-handler';
 import { ListItem } from 'react-native-elements';
 
-class Event extends React.Component {
+class EventItem extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -47,7 +47,7 @@ class Event extends React.Component {
     }
 }
 
-export default withNavigation(Event);
+export default withNavigation(EventItem);
 
 const styles = StyleSheet.create({
     description: {
