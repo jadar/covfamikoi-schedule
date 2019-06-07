@@ -5,6 +5,10 @@ import { Icon } from 'react-native-elements'
 
 
 export default class DetailsScreen extends React.Component {
+    static navigationOptions = ({ navigation }) => ({
+        title: navigation.getParam('item', {}).title || "Details",
+    });
+
     render() {
         const { navigation } = this.props;
         const item = navigation.getParam('item', {});
