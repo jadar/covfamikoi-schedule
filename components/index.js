@@ -90,6 +90,7 @@ class Schedule extends React.Component {
         return (
             <View>
                 <SearchBar
+                    lightTheme={true}
                     placeholder="Search"
                     onChangeText={this.updateSearch}
                     value={search}
