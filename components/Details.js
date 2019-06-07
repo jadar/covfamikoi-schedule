@@ -15,7 +15,7 @@ export default class DetailsScreen extends React.Component {
         const start = Moment(item.start);
         const end = Moment(item.end);
         return (
-            <View style={{ flex: 1, alignItems: 'leading', margin: 20, justifyContent: 'top', width: "100%" }}>
+            <View style={{ flex: 1, margin: 20, width: "100%" }}>
                 <Text style={styles.title}>
                     {item.title}
                 </Text>
