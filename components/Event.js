@@ -29,11 +29,6 @@ class Event extends React.Component {
                         style={{
                             padding: 16,
                         }}>
-                        <Icon
-                            raised
-                            name='heartbeat'
-                            type='font-awesome'
-                            color='#f50' />
                         <Text style={ styles.title }>{item.title}</Text>
                         <Text style={ styles.description }>{Moment(item.start).format('h:mm A')} - {Moment(item.end).format('h:mm A')}</Text>
                     </View>

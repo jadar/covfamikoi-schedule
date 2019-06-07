@@ -9,8 +9,8 @@ import React from 'react';
 import { compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import { Font } from 'expo';
-
+import { AppLoading, Font } from 'expo';
+import { FontAwesome } from '@expo/vector-icons';
 
 /* redux-persist */
 
@@ -46,13 +46,33 @@ const store = createStore(persistedReducer);
 const persistor = persistStore(store);
 
 class HomeScreen extends React.Component {
+    state = {
+        isReady: false
+    };
+
     constructor(props) {
         super(props);
         this.store = store;
     }
 
+    async _loadAssets() {
+        console.log("\n\n\nLOADING FONTAWESOME!\n\n\n");
+        await Font.loadAsync([FontAwesome.font]);
+    }
+
     render() {
         const store = this.store;
+
+        if (!this.state.isReady) {
+            return (
+                <AppLoading
+                    startAsync={this._loadAssets}
+                    onFinish={() => this.setState({ isReady: true })}
+                    onError={console.warn}
+                />
+            );
+        }
+
         return (
             <BaseApp>
                 <Provider store={store}>
@@ -64,6 +84,13 @@ class HomeScreen extends React.Component {
                 </Provider>
             </BaseApp>
         );
+    }
+
+    async componentDidMount() {
+        // console.log("\n\n\nLOADING FONTAWESOME!\n\n\n");
+        // await Font.loadAsync([FontAwesome.font]);
+      // await Font.loadAsync([FontAwesome]);
+      // await Font.loadAsync({ 'FontAwesome': require('@expo/vector-icons/fonts/FontAwesome5.ttf') });
     }
 }
 
