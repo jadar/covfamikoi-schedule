@@ -9,6 +9,9 @@ import React from 'react';
 import { compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
+import { Font } from 'expo';
+
+
 /* redux-persist */
 
 import { persistStore, persistCombineReducers } from 'redux-persist';
@@ -22,8 +25,6 @@ import Schedule from './components/';
 import DetailsScreen from './components/Details';
 import BaseApp from './components/BaseApp';
 import primaryReducer from './reducers'; // Import the reducer and create a store
-
-import { Button } from 'react-native';
 
 import { createStackNavigator } from 'react-navigation';
 
@@ -48,7 +49,6 @@ class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
         this.store = store;
-        // console.log("STORE", this.store);
     }
 
     render() {
@@ -57,10 +57,6 @@ class HomeScreen extends React.Component {
             <BaseApp>
                 <Provider store={store}>
                     <PersistGate loading={null} persistor={persistor}>
-                        <Button
-                          title="Go to Details"
-                          onPress={() => this.props.navigation.navigate('Details')}
-                        />
                         <Schedule 
                            navigation={this.props.navigation}
                         />

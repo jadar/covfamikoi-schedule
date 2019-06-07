@@ -4,6 +4,7 @@ import React from 'react';
 import { Text, View, SectionList } from 'react-native';
 import Event from './Event';
 import { RectButton, NativeViewGestureHandler } from 'react-native-gesture-handler';
+// import { withNavigation } from 'react-navigation';
 
 export default class EventList extends React.Component {
     constructor(props) {
@@ -26,13 +27,7 @@ export default class EventList extends React.Component {
 
     renderItem({item, index, section}) {
         return (
-            <RectButton
-                    key={item.title}
-                    underlayColor="#ccc"
-                    activeOpacity={0.3}
-                  >
-                <Event item={item}></Event>
-            </RectButton>
+            <Event item={item}></Event>
             )
     }
 
@@ -42,3 +37,5 @@ export default class EventList extends React.Component {
             );
     }
 }
+
+// export default withNavigation(EventList);

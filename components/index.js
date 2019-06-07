@@ -5,7 +5,6 @@ import { ScrollView, ActivityIndicator, View } from 'react-native';
 import { connect } from 'react-redux';
 import { reducers } from '../reducers';
 import { actionCreators } from '../reducers/eventList';
-import { Button } from 'react-native';
 
 
 const mapStateToProps = state => {
@@ -65,10 +64,6 @@ class Schedule extends React.Component {
 
         return (
             <ScrollView>
-                <Button
-                  title="Go to Details FROM SCHEDULE"
-                  onPress={() => this.props.navigation.navigate('Details')}
-                />
                 <EventList
                       sections={sections}
                       navigation={this.props.navigation}
