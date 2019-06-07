@@ -16,27 +16,31 @@ export default class DetailsScreen extends React.Component {
                     {item.title}
                 </Text>
                 <Text style={styles.subtitle}>{item.subtitle}</Text>
-
-                <View style={styles.row}>
-                    <Icon
-                        containerStyle={{ marginRight: 4 }}
-                        name='calendar-o'
-                        type='font-awesome'
-                        color='#333' />
-                    <Text>
-                        {start.format("dddd, MMMM Do YYYY, h:mm a")}-{end.format("h:mm a")}
-                    </Text>
-                </View>
-                
-                
-                
-                <Text>
+                <IconRow icon='calendar'>
+                    {start.format("dddd, MMMM Do YYYY, h:mm a")}-{end.format("h:mm a")}
+                </IconRow>
+                <IconRow icon='map-marker'>
                     {item.full_location}
-                </Text>
+                </IconRow>
             </View>
-            );
+        );
     }
 }
+
+const IconRow = props => {
+    return (
+        <View style={styles.row}>
+            <Icon
+                containerStyle={{ marginRight: 6, width: 20 }} 
+                name={props.icon}
+                type='font-awesome'
+                color='#999' />
+            <Text style={styles.rowText}>
+                {props.children}
+            </Text>
+        </View>
+    )
+};
 
 const styles = StyleSheet.create({
     title: {
@@ -49,5 +53,12 @@ const styles = StyleSheet.create({
     row: {
         alignItems: 'center',
         flexDirection: 'row',
+        lineHeight: 30,
+        height: 30,
+    },
+    rowText: {
+        fontSize: 15,
+        lineHeight: 30,
+        height: 30,
     }
 });
