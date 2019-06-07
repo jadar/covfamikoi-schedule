@@ -36,7 +36,8 @@ class Schedule extends React.Component {
             .then(response => response.json())
             .then(this.onFetch)
             .catch(error => {
-                 console.error(error);
+                 console.log(error);
+                 this.updateSearch('');
             });
     }
 
