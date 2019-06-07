@@ -46,6 +46,9 @@ const store = createStore(persistedReducer);
 const persistor = persistStore(store);
 
 class HomeScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Schedule',
+    };
     state = {
         isReady: false
     };
@@ -89,18 +92,12 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default createStackNavigator({
-    Home: HomeScreen,
-    Details: DetailsScreen,
-  },
-    //{
-  //Home: {
-    //screen: HomeScreen
-  //},
-  //Details: {
-    //screen: DetailsScreen,
-  //},
-//},{
-   {
-  initialRouteName: 'Home',
-});
+export default createStackNavigator(
+    {
+        Home: HomeScreen,
+        Details: DetailsScreen,
+    },
+    {
+        initialRouteName: 'Home',
+    }
+);
