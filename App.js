@@ -57,7 +57,7 @@ class HomeScreen extends React.Component {
 
     async _loadAssets() {
         console.log("\n\n\nLOADING FONTAWESOME!\n\n\n");
-        await Font.loadAsync([FontAwesome.font]);
+        await Font.loadAsync({...FontAwesome.font});
     }
 
     render() {
@@ -84,13 +84,6 @@ class HomeScreen extends React.Component {
                 </Provider>
             </BaseApp>
         );
-    }
-
-    async componentDidMount() {
-        // console.log("\n\n\nLOADING FONTAWESOME!\n\n\n");
-        // await Font.loadAsync([FontAwesome.font]);
-      // await Font.loadAsync([FontAwesome]);
-      // await Font.loadAsync({ 'FontAwesome': require('@expo/vector-icons/fonts/FontAwesome5.ttf') });
     }
 }
 
