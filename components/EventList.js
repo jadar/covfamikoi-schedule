@@ -3,7 +3,7 @@
 import React from 'react';
 import { Text, View, SectionList } from 'react-native';
 import Event from './Event';
-import { Button } from 'react-native';
+import { RectButton, NativeViewGestureHandler } from 'react-native-gesture-handler';
 
 export default class EventList extends React.Component {
     constructor(props) {
@@ -12,30 +12,28 @@ export default class EventList extends React.Component {
 
     render() {
         return (
-            <View>
-                <Button
-                  title="Go to Details FROM EVENT LIST"
-                  onPress={() => this.props.navigation.navigate('Details')}
-                />
+            <NativeViewGestureHandler>
                 <SectionList
-                    renderItem={this.renderItem}
-                    renderSectionHeader={this.renderSectionHeader}
-                    sections={this.props.sections}
-                    keyExtractor={(item, index) => item + index}
-                    //navigation={this.props.navigation}
+                renderItem={this.renderItem}
+                renderSectionHeader={this.renderSectionHeader}
+                sections={this.props.sections}
+                keyExtractor={(item, index) => item + index}
+                style={{ backgroundColor: '#fff' }}
                 />
-            </View>
+            </NativeViewGestureHandler>
         );
     }
 
     renderItem({item, index, section}) {
         return (
-            <Event 
-                item={item}
-                //navigation={this.props.navigation}
-            >
-            </Event>
-        )
+            <RectButton
+                    key={item.title}
+                    underlayColor="#ccc"
+                    activeOpacity={0.3}
+                  >
+                <Event item={item}></Event>
+            </RectButton>
+            )
     }
 
     renderSectionHeader({ section: { title } }) {
