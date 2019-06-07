@@ -20,7 +20,7 @@ export default class DetailsScreen extends React.Component {
                     {item.title}
                 </Text>
                 <Text style={styles.subtitle}>{item.subtitle}</Text>
-                <IconRow icon='calendar'>
+                <IconRow icon='calendar-o'>
                     {start.format("dddd, MMMM Do YYYY, h:mm a")}-{end.format("h:mm a")}
                 </IconRow>
                 <IconRow icon='map-marker'>
@@ -35,7 +35,8 @@ const IconRow = props => {
     return (
         <View style={styles.row}>
             <Icon
-                containerStyle={{ marginRight: 6, width: 20 }} 
+                size={20}
+                containerStyle={{ marginRight: 6, width: 25 }}
                 name={props.icon}
                 type='font-awesome'
                 color='#999' />
