@@ -10,7 +10,7 @@ import { compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import { AppLoading, Font } from 'expo';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 /* redux-persist */
 
@@ -56,8 +56,10 @@ class HomeScreen extends React.Component {
     }
 
     async _loadAssets() {
-        console.log("\n\n\nLOADING FONTAWESOME!\n\n\n");
-        await Font.loadAsync({...FontAwesome.font});
+        //require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf')
+        console.log(MaterialIcons.font);
+        // this is most definitely a bug. Key must capitalized.
+        await Font.loadAsync({...FontAwesome.font, 'Ionicons': Ionicons.font.ionicons, 'MaterialIcons': MaterialIcons.font.material});
     }
 
     render() {
