@@ -22,7 +22,7 @@ export default class DetailsScreen extends React.Component {
         );
 
         let description = (
-            <IconRow icon='question-circle'>
+            <IconRow icon='info-circle'>
                 {item.description}
             </IconRow>
         )
