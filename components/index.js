@@ -30,7 +30,7 @@ class Schedule extends React.Component {
         sections: [],
     };
 
-    fetchFromServer() {
+    async fetchFromServer() {
         let url = 'https://covfamikoiregistration.com/registration/schedule/';
         return fetch(url)
             .then(response => response.json())
@@ -96,11 +96,12 @@ class Schedule extends React.Component {
                     onChangeText={this.updateSearch}
                     value={search}
                 />
-                <ScrollView style={{flex: 1}}>
-                    <EventList
-                          sections={this.state.sections}
-                      />
-                </ScrollView>
+                <EventList
+                      sections={this.state.sections}
+                      isLoading={false}
+                      style={{flex: 1}}
+                      reload={() => this.fetchFromServer()}
+                  />
             </View>
         );
     }
