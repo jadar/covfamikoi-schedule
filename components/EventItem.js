@@ -24,21 +24,19 @@ class EventItem extends React.Component {
     render() {
         const item = this.props.item;
         return (
-            // <NativeViewGestureHandler>
-                <ListItem
-                    key={item.id}
-                    title={item.title}
-                    titleStyle={styles.title}
-                    subtitle={this.subtitleText(item)}
-                    subtitleStyle={styles.description}
-                    bottomDivider={true} 
-                    chevron={true}
-                    containerStyle={{paddingTop:7, paddingBottom:7, paddingLeft: 15, paddingRight: 15}}
-                    onPress={() => 
-                       this.props.navigation.navigate('Details', {item})
-                    }
-                     />
-            // </NativeViewGestureHandler>
+            <ListItem
+                key={item.id}
+                title={item.title}
+                titleStyle={styles.title}
+                subtitle={this.subtitleText(item)}
+                subtitleStyle={styles.description}
+                bottomDivider={true} 
+                chevron={true}
+                containerStyle={{paddingTop:7, paddingBottom:7, paddingLeft: 15, paddingRight: 15}}
+                onPress={() => 
+                   this.props.navigation.navigate('Details', {item})
+                }
+                 />
         );
     }
 }
