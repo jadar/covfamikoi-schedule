@@ -13,15 +13,23 @@ class EventItem extends React.Component {
         super(props);
     }
 
+    subtitleText(item) {
+        if (item.start == item.end) {
+            return Moment(item.start).format('h:mm A');
+        } else {
+            return `${Moment(item.start).format('h:mm A')} - ${Moment(item.end).format('h:mm A')}`;
+        }
+    }
+
     render() {
         const item = this.props.item;
         return (
-            <NativeViewGestureHandler>
+            // <NativeViewGestureHandler>
                 <ListItem
                     key={item.id}
                     title={item.title}
                     titleStyle={styles.title}
-                    subtitle={`${Moment(item.start).format('h:mm A')} - ${Moment(item.end).format('h:mm A')}`}
+                    subtitle={this.subtitleText(item)}
                     subtitleStyle={styles.description}
                     bottomDivider={true} 
                     chevron={true}
@@ -30,7 +38,7 @@ class EventItem extends React.Component {
                        this.props.navigation.navigate('Details', {item})
                     }
                      />
-            </NativeViewGestureHandler>
+            // </NativeViewGestureHandler>
         );
     }
 }

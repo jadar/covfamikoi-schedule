@@ -14,6 +14,8 @@ export default class DetailsScreen extends React.Component {
         const item = navigation.getParam('item', {});
         const start = Moment(item.start);
         const end = Moment(item.end);
+        let dateString = start.format("dddd, MMMM Do YYYY, h:mm a");
+
         let subtitle = item.subtitle ? <Text style={styles.subtitle}>{item.subtitle}</Text> : null;
         let location = (
             <IconRow icon='map-marker'>
@@ -26,6 +28,7 @@ export default class DetailsScreen extends React.Component {
                 {item.description}
             </IconRow>
         )
+
         if (item.multi_location == 1) {
             location = (
                 <MultiIconRow icon='map-marker'> 
@@ -34,6 +37,11 @@ export default class DetailsScreen extends React.Component {
             );
             description = null;
         }
+
+        if (item.start != item.end) {
+            dateString += `-${end.format("h:mm a")}`;
+        }
+
         return (
             <View style={{ flex: 1, margin: 20, width: "100%" }}>
                 <Text style={styles.title}>
@@ -44,7 +52,7 @@ export default class DetailsScreen extends React.Component {
                     {item.speaker}
                 </IconRow>
                 <IconRow icon='calendar-o'>
-                    {start.format("dddd, MMMM Do YYYY, h:mm a")}-{end.format("h:mm a")}
+                    {dateString}
                 </IconRow>
                 {location}
                 {description}
