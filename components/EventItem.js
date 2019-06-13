@@ -13,24 +13,30 @@ class EventItem extends React.Component {
         super(props);
     }
 
+    subtitleText(item) {
+        if (item.start == item.end) {
+            return Moment(item.start).format('h:mm A');
+        } else {
+            return `${Moment(item.start).format('h:mm A')} - ${Moment(item.end).format('h:mm A')}`;
+        }
+    }
+
     render() {
         const item = this.props.item;
         return (
-            <NativeViewGestureHandler>
-                <ListItem
-                    key={item.id}
-                    title={item.title}
-                    titleStyle={styles.title}
-                    subtitle={`${Moment(item.start).format('h:mm A')} - ${Moment(item.end).format('h:mm A')}`}
-                    subtitleStyle={styles.description}
-                    bottomDivider={true} 
-                    chevron={true}
-                    containerStyle={{paddingTop:7, paddingBottom:7, paddingLeft: 15, paddingRight: 15}}
-                    onPress={() => 
-                       this.props.navigation.navigate('Details', {item})
-                    }
-                     />
-            </NativeViewGestureHandler>
+            <ListItem
+                key={item.id}
+                title={item.title}
+                titleStyle={styles.title}
+                subtitle={this.subtitleText(item)}
+                subtitleStyle={styles.description}
+                bottomDivider={true} 
+                chevron={true}
+                containerStyle={{paddingTop:7, paddingBottom:7, paddingLeft: 15, paddingRight: 15}}
+                onPress={() => 
+                   this.props.navigation.navigate('Details', {item})
+                }
+                 />
         );
     }
 }

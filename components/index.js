@@ -68,7 +68,7 @@ class Schedule extends React.Component {
             let data = filteredItems.filter(item => Moment(item.start).format('YYYY-MM-DD') == day);
             if (data.length) {
                 sections.push({
-                    title: Moment(day).format("dddd, MMM Do"),
+                    title: Moment(day).format("dddd, MMM D"),
                     data,
                 });
             }
@@ -97,6 +97,7 @@ class Schedule extends React.Component {
                     lightTheme={true}
                     placeholder="Search"
                     onChangeText={this.updateSearch}
+                    round={true}
                     value={search}
                 />
                 <EventList
