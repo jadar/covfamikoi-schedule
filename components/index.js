@@ -89,14 +89,14 @@ class Schedule extends React.Component {
         }
 
         return (
-            <View>
+            <View style={{flex: 1}}>
                 <SearchBar
                     lightTheme={true}
                     placeholder="Search"
                     onChangeText={this.updateSearch}
                     value={search}
                 />
-                <ScrollView>
+                <ScrollView style={{flex: 1}}>
                     <EventList
                           sections={this.state.sections}
                       />
