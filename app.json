@@ -6,10 +6,12 @@
     "version": "2.0.0",
     "slug": "covfamikoi-schedule",
     "ios": {
-      "bundleIdentifier": "net.jadar.Covfamikoi"
+      "bundleIdentifier": "net.jadar.Covfamikoi",
+      "supportsTablet": true
     },
     "android": {
-      "package": "net.jadar.Covfamikoi"
+      "package": "net.jadar.Covfamikoi",
+      "permissions": []
     }
   }
 }
