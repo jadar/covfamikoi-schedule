@@ -19,6 +19,7 @@ export default class EventList extends React.Component {
                 SectionSeparatorComponent={Separator}
                 sections={this.props.sections}
                 keyExtractor={(item, index) => item + index}
+                initialNumToRender={200}
                 style={{ backgroundColor: '#fff' }}
             />
         );
