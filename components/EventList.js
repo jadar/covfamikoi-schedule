@@ -4,11 +4,20 @@ import React from 'react';
 import { Text, View, SectionList, StyleSheet } from 'react-native';
 import EventItem from './EventItem';
 import { RectButton, NativeViewGestureHandler } from 'react-native-gesture-handler';
+//import Schedule from '.';
 // import { withNavigation } from 'react-navigation';
 
 export default class EventList extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    async _onRefresh() { 
+        this.setState({isLoading: true}); 
+        this.render();
+        await this.props.reload();
+        // TODO -- THIS DOESN'T KEEP THE SPINNER UP LONG ENOUGH
+        this.setState({isLoading: false}); 
     }
 
     render() {
@@ -20,6 +29,8 @@ export default class EventList extends React.Component {
                 sections={this.props.sections}
                 keyExtractor={(item, index) => item + index}
                 initialNumToRender={200}
+                onRefresh={() => this._onRefresh()}
+                refreshing={this.props.isLoading}
                 style={{ backgroundColor: '#fff' }}
             />
         );
