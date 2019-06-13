@@ -30,7 +30,7 @@ class Schedule extends React.Component {
         sections: [],
     };
 
-    fetchFromServer() {
+    async fetchFromServer() {
         let url = 'https://covfamikoiregistration.com/registration/schedule/';
         return fetch(url)
             .then(response => response.json())
