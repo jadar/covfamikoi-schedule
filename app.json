@@ -11,7 +11,11 @@
     },
     "android": {
       "package": "net.jadar.Covfamikoi",
-      "permissions": []
+      "permissions": [],
+      "adaptiveIcon": {
+        "backgroundImage": "./assets/images/ic_launcher_background.png",
+        "foregroundImage": "./assets/images/ic_launcher_foreground.png"
+      }
     }
   }
 }
