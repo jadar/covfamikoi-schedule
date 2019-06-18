@@ -3,7 +3,7 @@
     "name": "Covfamikoi", 
     "sdkVersion": "31.0.0",
     "icon": "./assets/images/icon.png",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "slug": "covfamikoi-schedule",
     "ios": {
       "bundleIdentifier": "net.jadar.Covfamikoi",
