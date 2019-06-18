@@ -11,6 +11,7 @@
     },
     "android": {
       "package": "net.jadar.Covfamikoi",
+      "versionCode": 2,
       "permissions": [],
       "adaptiveIcon": {
         "backgroundImage": "./assets/images/ic_launcher_background.png",
