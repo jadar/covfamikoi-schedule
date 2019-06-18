@@ -45,10 +45,13 @@ const store = createStore(persistedReducer);
 // Enable persistence
 const persistor = persistStore(store);
 
+// storage.removeItem('persist:root');
+
 class HomeScreen extends React.Component {
     static navigationOptions = {
         title: 'Schedule',
     };
+    
     state = {
         isReady: false
     };

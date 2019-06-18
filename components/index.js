@@ -10,27 +10,26 @@ import { SearchBar } from 'react-native-elements';
 Moment.locale('en');
 
 const mapStateToProps = state => {
+    // console.log("Mapping state: ");
+    // console.log("Is loading: " + state.eventList.isLoading);
     return {
         schedule: state.eventList.schedule,
         isLoading: state.eventList.isLoading,
-        sections: state.sections,
-        search: state.search,
+        sections: state.eventList.sections,
+        search: state.eventList.search,
     };
 };
 
 class Schedule extends React.Component {
     onFetch = responseJson => {
         const { dispatch } = this.props;
-        dispatch(actionCreators.reload(responseJson));
-        this.updateSearch('');
+        dispatch(actionCreators.reloadEventsFinished(responseJson));
     }
 
-    state = {
-        search: '',
-        sections: [],
-    };
-
     async fetchFromServer() {
+        const { dispatch } = this.props;
+        dispatch(actionCreators.reloadEventsBegan());
+
         let url = 'https://1jptdh2d70.execute-api.us-east-1.amazonaws.com/default/covfamikoi-schedule'
         // Eventually
         // https://schedule.covfamikoiregistration.com/default/covfamikoi-schedule
@@ -40,7 +39,7 @@ class Schedule extends React.Component {
             .then(this.onFetch)
             .catch(error => {
                  console.log(error);
-                 this.updateSearch('');
+                 // this.updateSearch('');
             });
     }
 
@@ -48,48 +47,13 @@ class Schedule extends React.Component {
         this.fetchFromServer();
     }
 
-    updateSearch = search => {
-        const { schedule } = this.props;
-        this.setState({ search });
-
-        let filteredItems = schedule.filter(item => {
-            if (!search) return true;
-            let val = item.title.toLowerCase().includes(search.toLowerCase());
-            return val;
-        });
-
-        let days = filteredItems.map(item => Moment(item.start).format('YYYY-MM-DD'));
-        days = [...new Set(days)];  // unique
-
-        let sections = [];
-
-        for (let i = 0; i < days.length; i++) {
-            let day = days[i];
-            let data = filteredItems.filter(item => Moment(item.start).format('YYYY-MM-DD') == day);
-            if (data.length) {
-                sections.push({
-                    title: Moment(day).format("dddd, MMM D"),
-                    data,
-                });
-            }
-        }
-
-        this.setState({sections});
-    };
+    updateSearch = searchTerm => {
+        dispatch(actionCreators.updateSearch(searchTerm));
+    }
 
 
     render() {
-        const { isLoading, schedule } = this.props;
-
-        const { search } = this.state;
-
-        if (isLoading) {
-            return (
-                <View style={{flex: 1}}>
-                    <ActivityIndicator/>
-                </View>
-            )
-        }
+        const { isLoading, search, sections } = this.props;
 
         return (
             <View style={{flex: 1}}>
@@ -101,8 +65,8 @@ class Schedule extends React.Component {
                     value={search}
                 />
                 <EventList
-                      sections={this.state.sections}
-                      isLoading={false}
+                      sections={sections}
+                      isLoading={isLoading}
                       style={{flex: 1}}
                       reload={() => this.fetchFromServer()}
                   />
