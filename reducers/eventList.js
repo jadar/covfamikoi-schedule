@@ -3,6 +3,7 @@ import Moment from 'moment';
 // The types of actions that you can dispatch to modify the state of the store
 export const types = {
     RELOAD_EVENT_LIST_BEGAN: 'RELOAD_EVENT_LIST_BEGAN',
+    RELOAD_EVENT_LIST_FAILED: 'RELOAD_EVENT_LIST_FAILED',
     RELOAD_EVENT_LIST: 'RELOAD_EVENT_LIST',
     UPDATE_SEARCH_TERM: 'UPDATE_SEARCH_TERM',
 }
@@ -19,6 +20,12 @@ export const actionCreators = {
         return {
             type: types.RELOAD_EVENT_LIST, 
             payload: content
+        }
+    },
+    reloadEventsFailed: content => {
+        return {
+            type: types.RELOAD_EVENT_LIST_FAILED, 
+            payload: null
         }
     },
     updateSearch: searchTerm => {
@@ -49,26 +56,28 @@ function sectionize(schedule) {
     return sections;
 }
 
-function filterSchedule(schedule, searchTerm) {
-    return schedule.filter(item => {
-        if (!searchTerm) return true;
-        let val = item.title.toLowerCase().includes(searchTerm.toLowerCase());
-        return val;
-    });
-}
+function filterScheduleSections(sections, searchTerm) {
+    if (!searchTerm)
+        return sections;
 
-function computeState(schedule, searchTerm) {
-    let filteredSchedule = filterSchedule(schedule, searchTerm);
-    let sections = sectionize(filteredSchedule);
-    return {
-        schedule: schedule, // pass the original schedule through. sections is the only filtered one.
-        sections: sections,
-        search: searchTerm
-    }
+    const lowCasedTerm = searchTerm.toLowerCase()
+
+    let filteredSections = sections.map(section => {
+        return {
+            ...section,
+            data: section.data.filter(item => {
+                let val = item.title.toLowerCase().includes(lowCasedTerm);
+                return val;
+            })
+        }
+    }).filter(section => { return section.data.length > 0 })
+    // console.log(filteredSections.map(section => { return section.title }));
+    return filteredSections;//filteredSections.filter(section => { section.length > 0 })
 }
 
 // Initial state of the store
 const initialState = {
+    unfilteredSections: [],
     search: null,
     schedule: [],
     sections: [],
@@ -90,18 +99,29 @@ export default function (state = initialState, action) {
             ...state,
             isLoading: true
         };
-    } else if (action.type === types.RELOAD_EVENT_LIST) {
-        let newState = computeState(payload, state.search);
+    } else if (action.type === types.RELOAD_EVENT_LIST_FAILED) {
         return {
             ...state,
-            ...newState,
+            isLoading: false
+        };
+    } else if (action.type === types.RELOAD_EVENT_LIST) {
+        // let newState = computeState(payload, state.search);
+        let sections = sectionize(payload);
+        let filteredSections = filterScheduleSections(sections, state.search);
+
+        return {
+            ...state,
+            unfilteredSections: sections, // pass the original schedule through. sections is the only filtered one.
+            sections: filteredSections,
             isLoading: false
         };
     } else if (action.type === types.UPDATE_SEARCH_TERM) {
-        let newState = computeState(state.schedule, payload);
+        // let newState = computeState(state.schedule, payload);
+        // console.log(state);
+        let filteredSections = filterScheduleSections(state.unfilteredSections, payload);
         return {
             ...state,
-            ...newState,
+            sections: filteredSections,
             search: payload,
         }
     }
