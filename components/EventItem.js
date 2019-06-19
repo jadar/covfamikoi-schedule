@@ -36,7 +36,7 @@ class EventItem extends React.Component {
                 onPress={() => 
                    this.props.navigation.navigate('Details', {item})
                 }
-                 />
+                />
         );
     }
 }

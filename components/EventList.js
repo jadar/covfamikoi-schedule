@@ -24,6 +24,7 @@ export default class EventList extends React.Component {
                 SectionSeparatorComponent={Separator}
                 sections={this.props.sections}
                 keyExtractor={(item, index) => item + index}
+                initialNumToRender={20}
                 onRefresh={() => this._onRefresh()}
                 refreshing={this.props.isLoading}
                 style={{ backgroundColor: '#fff' }}
