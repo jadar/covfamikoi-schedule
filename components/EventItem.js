@@ -8,7 +8,7 @@ import { withNavigation } from 'react-navigation';
 import { RectButton, NativeViewGestureHandler } from 'react-native-gesture-handler';
 import { ListItem } from 'react-native-elements';
 
-class EventItem extends React.Component {
+class EventItem extends React.PureComponent {
     constructor(props) {
         super(props);
     }
