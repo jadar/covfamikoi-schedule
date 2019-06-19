@@ -61,7 +61,7 @@ function computeState(schedule, searchTerm) {
     let filteredSchedule = filterSchedule(schedule, searchTerm);
     let sections = sectionize(filteredSchedule);
     return {
-        schedule: filteredSchedule,
+        schedule: schedule, // pass the original schedule through. sections is the only filtered one.
         sections: sections,
         search: searchTerm
     }
