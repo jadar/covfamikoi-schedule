@@ -48,6 +48,7 @@ class Schedule extends React.Component {
     }
 
     updateSearch = searchTerm => {
+        const { dispatch } = this.props;
         dispatch(actionCreators.updateSearch(searchTerm));
     }
 
