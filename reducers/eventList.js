@@ -3,6 +3,7 @@ import Moment from 'moment';
 // The types of actions that you can dispatch to modify the state of the store
 export const types = {
     RELOAD_EVENT_LIST_BEGAN: 'RELOAD_EVENT_LIST_BEGAN',
+    RELOAD_EVENT_LIST_FAILED: 'RELOAD_EVENT_LIST_FAILED',
     RELOAD_EVENT_LIST: 'RELOAD_EVENT_LIST',
     UPDATE_SEARCH_TERM: 'UPDATE_SEARCH_TERM',
 }
@@ -19,6 +20,12 @@ export const actionCreators = {
         return {
             type: types.RELOAD_EVENT_LIST, 
             payload: content
+        }
+    },
+    reloadEventsFailed: content => {
+        return {
+            type: types.RELOAD_EVENT_LIST_FAILED, 
+            payload: null
         }
     },
     updateSearch: searchTerm => {
@@ -91,6 +98,11 @@ export default function (state = initialState, action) {
         return {
             ...state,
             isLoading: true
+        };
+    } else if (action.type === types.RELOAD_EVENT_LIST_FAILED) {
+        return {
+            ...state,
+            isLoading: false
         };
     } else if (action.type === types.RELOAD_EVENT_LIST) {
         // let newState = computeState(payload, state.search);

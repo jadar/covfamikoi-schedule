@@ -31,7 +31,7 @@ import { createStackNavigator } from 'react-navigation';
 const config = {
     key: 'primary',
     storage: storage,
-    stateReconciler: hardSet,
+    // stateReconciler: hardSet,
 };
 
 
@@ -45,13 +45,15 @@ const store = createStore(persistedReducer);
 // Enable persistence
 const persistor = persistStore(store);
 
+
+
 // storage.removeItem('persist:root');
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
         title: 'Schedule',
     };
-    
+
     state = {
         isReady: false
     };
