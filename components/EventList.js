@@ -16,7 +16,7 @@ export default class EventList extends React.Component {
     }
 
     render() {
-        // console.log("render");
+        console.log("render");
         return (
             <SectionList
                 renderItem={this.renderItem}
@@ -24,7 +24,6 @@ export default class EventList extends React.Component {
                 SectionSeparatorComponent={Separator}
                 sections={this.props.sections}
                 keyExtractor={(item, index) => item + index}
-                initialNumToRender={200}
                 onRefresh={() => this._onRefresh()}
                 refreshing={this.props.isLoading}
                 style={{ backgroundColor: '#fff' }}
