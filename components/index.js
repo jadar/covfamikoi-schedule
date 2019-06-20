@@ -3,7 +3,6 @@ import Moment from 'moment';
 import EventList from './EventList';
 import { ScrollView, ActivityIndicator, View } from 'react-native';
 import { connect } from 'react-redux';
-import { reducers } from '../reducers';
 import { actionCreators } from '../reducers/eventList';
 import { SearchBar } from 'react-native-elements';
 
@@ -56,7 +55,7 @@ class Schedule extends React.Component {
 
     render() {
         const { isLoading, search, sections } = this.props;
-
+        // console.log(Object.keys(this.props));
         return (
             <View style={{flex: 1}}>
                 <SearchBar

@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react';
-import { Text, View, SectionList, StyleSheet } from 'react-native';
+import { Button, Text, View, SectionList, StyleSheet } from 'react-native';
 import EventItem from './EventItem';
 import { RectButton, NativeViewGestureHandler } from 'react-native-gesture-handler';
+import { withNavigation } from 'react-navigation';
 
-export default class EventList extends React.Component {
+class EventList extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -13,6 +14,37 @@ export default class EventList extends React.Component {
     async _onRefresh() { 
         this.setState({ isLoading: true });
         await this.props.reload();
+    }
+
+    scrollToNow = () => {
+        let currentHour = new Date();
+        currentHour.setMinutes(0, 0, 0);
+
+        const { sections } = this.props;
+        let i = 0;
+        for (i = 0; i < sections.length; i++) {
+            let sectionData = sections[i].data
+            let startDate = new Date(sectionData[0].start);
+            if (startDate >= currentHour) {
+                break;
+            }
+        }
+
+        if (i >= sections.length) {
+            return;
+        }
+
+        this.sectionListRef.scrollToLocation({
+            itemIndex: -1,
+            sectionIndex: i,
+            viewPosition: 0
+        });
+    }
+
+    componentDidMount() {
+        // console.log(Object.keys(this.props));
+        const { navigation } = this.props;
+        navigation.setParams({ scrollToNow: this.scrollToNow })
     }
 
     render() {
@@ -28,13 +60,14 @@ export default class EventList extends React.Component {
                 onRefresh={() => this._onRefresh()}
                 refreshing={this.props.isLoading}
                 style={{ backgroundColor: '#fff' }}
+                ref={ref => (this.sectionListRef = ref)}
             />
         );
     }
 
     renderItem({item, index, section}) {
         return (
-            <EventItem item={item}></EventItem>
+            <EventItem item={item} />
             )
     }
 
@@ -46,6 +79,8 @@ export default class EventList extends React.Component {
         );
     }
 }
+
+export default withNavigation(EventList);
 
 const Separator = () => (
     <View style={styles.sectionSeparator} />

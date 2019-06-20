@@ -3,6 +3,7 @@
 /* react */
 
 import React from 'react';
+import { Button } from 'react-native';
 
 /* redux */
 
@@ -50,8 +51,16 @@ const persistor = persistStore(store);
 // storage.removeItem('persist:root');
 
 class HomeScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Schedule',
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Schedule',
+            headerRight: (
+                <Button
+                    onPress={() => { navigation.getParam('scrollToNow')() }}
+                    title="Now"
+                />
+            )
+        }
     };
 
     state = {

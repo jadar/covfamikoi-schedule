@@ -3,7 +3,7 @@
     "name": "Covfamikoi", 
     "sdkVersion": "31.0.0",
     "icon": "./assets/images/icon.png",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "slug": "covfamikoi-schedule",
     "ios": {
       "bundleIdentifier": "net.jadar.Covfamikoi",
@@ -11,7 +11,7 @@
     },
     "android": {
       "package": "net.jadar.Covfamikoi",
-      "versionCode": 2,
+      "versionCode": 3,
       "permissions": [],
       "adaptiveIcon": {
         "backgroundImage": "./assets/images/ic_launcher_background.png",
