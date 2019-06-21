@@ -41,8 +41,8 @@ class EventList extends React.Component {
 
         this.sectionListRef.scrollToLocation({
             sectionIndex: indices[0],
-            itemIndex: indices[1],
-            viewPosition: 0
+            itemIndex: indices[1] - 1,
+            viewPosition: 0,
         });
     }
 
