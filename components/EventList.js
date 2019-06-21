@@ -16,27 +16,32 @@ class EventList extends React.Component {
         await this.props.reload();
     }
 
+    getItemIndexForHour(sections, hour) {
+        let i = 0;
+        let j = 0;
+        for (i = 0; i < sections.length; i++) {
+            let sectionData = sections[i].data;
+            for (j = 0; j < sectionData.length; j++) {
+                let startDate = new Date(sectionData[j].start);
+                if (startDate >= hour) {
+                    return [i, j];
+                }
+            }
+        }
+
+        return [i-1, j-1];
+    }
+
     scrollToNow = () => {
         let currentHour = new Date();
         currentHour.setMinutes(0, 0, 0);
 
         const { sections } = this.props;
-        let i = 0;
-        for (i = 0; i < sections.length; i++) {
-            let sectionData = sections[i].data
-            let startDate = new Date(sectionData[0].start);
-            if (startDate >= currentHour) {
-                break;
-            }
-        }
-
-        if (i >= sections.length) {
-            return;
-        }
+        let indices = this.getItemIndexForHour(sections, currentHour);
 
         this.sectionListRef.scrollToLocation({
-            itemIndex: -1,
-            sectionIndex: i,
+            sectionIndex: indices[0],
+            itemIndex: indices[1] - 1,
             viewPosition: 0
         });
     }
