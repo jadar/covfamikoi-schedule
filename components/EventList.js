@@ -34,15 +34,16 @@ class EventList extends React.Component {
 
     scrollToNow = () => {
         let currentHour = new Date();
-        currentHour.setMinutes(0, 0, 0);
+        // currentHour.setMinutes(0, 0, 0);
 
         const { sections } = this.props;
         let indices = this.getItemIndexForHour(sections, currentHour);
 
+        let pos = this.sectionListRef.props.stickySectionHeadersEnabled ? 1 : 0;
         this.sectionListRef.scrollToLocation({
             sectionIndex: indices[0],
-            itemIndex: indices[1] - 1,
-            viewPosition: 0,
+            itemIndex: indices[1] - pos,
+            viewPosition: 0
         });
     }
 
