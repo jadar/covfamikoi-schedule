@@ -124,13 +124,17 @@ export default function (state = initialState, action) {
             sections: filteredSections,
             search: payload,
         }
-    }
-    else if (action.type == 'persist/REHYDRATE') {
-        return {
-            ...state,
-            ...action.payload.eventList,
-            isLoading: false 
-        };
+    } else if (action.type == 'persist/REHYDRATE') {
+        if (!action.payload ||
+            !action.payload.eventList) {
+            return state;
+        } else {
+            return {
+                ...state,
+                ...action.payload.eventList,
+                isLoading: false 
+            };
+        }
     }
 
     return { ...state };
