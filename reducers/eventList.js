@@ -125,9 +125,13 @@ export default function (state = initialState, action) {
             search: payload,
         }
     }
-    //else if (action.type == 'persist/REHYDRATE') {
-    //     return { ...state, schedule: action.payload.schedule, isLoading: false }
-    // }
+    else if (action.type == 'persist/REHYDRATE') {
+        return {
+            ...state,
+            ...action.payload.eventList,
+            isLoading: false 
+        };
+    }
 
     return { ...state };
 }

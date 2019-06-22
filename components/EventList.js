@@ -55,12 +55,17 @@ class EventList extends React.Component {
 
     render() {
         // console.log("render");
+        let sections = this.props.sections;
+        if (!sections) {
+            sections = [];
+        }
+
         return (
             <SectionList
                 renderItem={this.renderItem}
                 renderSectionHeader={this.renderSectionHeader}
                 SectionSeparatorComponent={Separator}
-                sections={this.props.sections}
+                sections={sections}
                 keyExtractor={(item, index) => item + index}
                 initialNumToRender={200}
                 onRefresh={() => this._onRefresh()}
