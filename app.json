@@ -1,7 +1,6 @@
 {
   "expo": {
-    "name": "Covfamikoi", 
-    "sdkVersion": "33.0.0",
+    "name": "Covfamikoi",
     "icon": "./assets/images/icon.png",
     "version": "2.0.6",
     "slug": "covfamikoi-schedule",
