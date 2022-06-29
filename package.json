@@ -5,8 +5,7 @@
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
     "jest-expo": "^45.0.0",
-    "react-native-scripts": "1.14.0",
-    "react-test-renderer": "16.3.1"
+    "react-native-scripts": "2.0.1"
   },
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -21,6 +20,8 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@react-navigation/native": "^6.0.10",
+    "@react-navigation/stack": "^6.2.1",
     "expo": "^45.0.0",
     "expo-updates": "~0.13.2",
     "lodash": "^4.17.10",
@@ -28,11 +29,10 @@
     "npm": "^6.1.0",
     "react": "17.0.2",
     "react-native": "0.68.2",
-    "react-native-elements": "^1.1.0",
-    "react-native-gesture-handler": "~2.2.1",
-    "react-navigation": "^2.18.3",
-    "react-redux": "^5.0.7",
-    "redux": "^4.0.0",
-    "redux-persist": "^5.10.0"
+    "react-native-elements": "^3.0.0",
+    "react-native-gesture-handler": "^2.2.1",
+    "react-redux": "^8.0.0",
+    "redux": "^4.2.0",
+    "redux-persist": "^6.0.0"
   }
 }
