@@ -1,10 +1,8 @@
 'use strict';
 
 import React from 'react';
-import { Button, Text, View, SectionList, StyleSheet } from 'react-native';
+import { Text, View, SectionList, StyleSheet } from 'react-native';
 import EventItem from './EventItem';
-import { RectButton, NativeViewGestureHandler } from 'react-native-gesture-handler';
-import { withNavigation } from 'react-navigation';
 
 class EventList extends React.Component {
     constructor(props) {
@@ -62,7 +60,7 @@ class EventList extends React.Component {
 
         return (
             <SectionList
-                renderItem={this.renderItem}
+                renderItem={({item }) => (<EventItem item={item} navigation={this.props.navigation} />)}
                 renderSectionHeader={this.renderSectionHeader}
                 SectionSeparatorComponent={Separator}
                 sections={sections}
@@ -76,12 +74,6 @@ class EventList extends React.Component {
         );
     }
 
-    renderItem({item, index, section}) {
-        return (
-            <EventItem item={item} />
-            )
-    }
-
     renderSectionHeader({ section: { title } }) {
         return (
             <View style={styles.sectionHeader}>
@@ -91,13 +83,11 @@ class EventList extends React.Component {
     }
 }
 
-export default withNavigation(EventList);
+export default EventList;
 
 const Separator = () => (
     <View style={styles.sectionSeparator} />
 );
-
-// export default withNavigation(EventList);
 
 const styles = StyleSheet.create({
     sectionHeader: {

@@ -54,7 +54,7 @@ class Schedule extends React.Component {
 
 
     render() {
-        const { isLoading, search, sections } = this.props;
+        const { isLoading, search, sections, navigation } = this.props;
         // console.log(Object.keys(this.props));
         return (
             <View style={{flex: 1}}>
@@ -66,6 +66,7 @@ class Schedule extends React.Component {
                     value={search}
                 />
                 <EventList
+                      navigation={navigation}
                       sections={sections}
                       isLoading={isLoading}
                       style={{flex: 1}}

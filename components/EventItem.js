@@ -3,9 +3,6 @@
 import React from 'react';
 import { Button, Text, View, StyleSheet } from 'react-native';
 import Moment from 'moment';
-import { withNavigation } from 'react-navigation';
-//import { createStackNavigator, createAppContainer } from 'react-navigation';
-import { RectButton, NativeViewGestureHandler } from 'react-native-gesture-handler';
 import { ListItem } from 'react-native-elements';
 
 class EventItem extends React.PureComponent {
@@ -26,24 +23,26 @@ class EventItem extends React.PureComponent {
         return (
             <ListItem
                 key={item.id}
-                title={item.title}
-                titleStyle={styles.title}
-                subtitle={this.subtitleText(item)}
-                subtitleStyle={styles.description}
-                bottomDivider={true} 
-                chevron={true}
-                containerStyle={{paddingTop:7, paddingBottom:7, paddingLeft: 15, paddingRight: 15}}
                 onPress={() => 
                    this.props.navigation.navigate('Details', {item})
-                }
-                />
+                }>
+                    <ListItem.Content>
+                        <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
+                        <ListItem.Subtitle style={styles.description}>{this.subtitleText(item)}</ListItem.Subtitle>
+                    </ListItem.Content>
+                    <ListItem.Chevron name='chevron-right' type='font-awesome-5'/>
+            </ListItem>
         );
     }
 }
 
-export default withNavigation(EventItem);
+export default EventItem;
 
 const styles = StyleSheet.create({
+    container: {
+        paddingVertical: 7,
+        paddingHorizontal: 15,
+    },
     description: {
         paddingTop: 1,
         color: '#555',

@@ -10,8 +10,8 @@ export default class DetailsScreen extends React.Component {
     });
 
     render() {
-        const { navigation } = this.props;
-        const item = navigation.getParam('item', {});
+        const { route } = this.props;
+        const item = route.params['item'] || {}; 
         const start = Moment(item.start);
         const end = Moment(item.end);
         let dateString = start.format("dddd, MMMM Do YYYY, h:mm a");
@@ -43,7 +43,7 @@ export default class DetailsScreen extends React.Component {
         }
 
         return (
-            <View style={{ flex: 1, margin: 20, width: "100%" }}>
+            <View style={{ flex: 1, margin: 20 }}>
                 <Text style={styles.title}>
                     {item.title}
                 </Text>

@@ -2,7 +2,7 @@
 
 /* react */
 
-import React from 'react';
+import * as React from 'react';
 import { Button } from 'react-native';
 
 /* redux */
@@ -10,15 +10,13 @@ import { Button } from 'react-native';
 import { compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 
-import { AppLoading, Font } from 'expo';
+import { Font } from 'expo';
 import { FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 /* redux-persist */
 
 import { persistStore, persistCombineReducers } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import storage from 'redux-persist/lib/storage'; // or whatever storage you are using
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
 
 /* app */
 
@@ -27,11 +25,14 @@ import DetailsScreen from './components/Details';
 import BaseApp from './components/BaseApp';
 import primaryReducer from './reducers'; // Import the reducer and create a store
 
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NavigationContainer } from '@react-navigation/native';
+import AppLoading from 'expo-app-loading';
 
 const config = {
     key: 'primary',
-    storage: storage,
+    storage: AsyncStorage,
     // stateReconciler: hardSet,
 };
 
@@ -50,7 +51,7 @@ const persistor = persistStore(store);
 
 // storage.removeItem('persist:root');
 
-class HomeScreen extends React.Component {
+export class HomeScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
             title: 'Schedule',
@@ -106,12 +107,15 @@ class HomeScreen extends React.Component {
     }
 }
 
-export default createStackNavigator(
-    {
-        Home: HomeScreen,
-        Details: DetailsScreen,
-    },
-    {
-        initialRouteName: 'Home',
-    }
-);
+const Stack = createStackNavigator();
+
+export default function App() {
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName='Home'>
+                <Stack.Screen name='Home' component={HomeScreen} />
+                <Stack.Screen name='Details' component={DetailsScreen} />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
