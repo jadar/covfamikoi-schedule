@@ -2,16 +2,16 @@
   "expo": {
     "name": "Covfamikoi",
     "icon": "./assets/images/icon.png",
-    "version": "2.0.6",
+    "version": "2.1.0",
     "slug": "covfamikoi-schedule",
     "ios": {
       "bundleIdentifier": "net.jadar.Covfamikoi",
       "supportsTablet": true,
-      "buildNumber": "5"
+      "buildNumber": "6"
     },
     "android": {
       "package": "net.jadar.Covfamikoi",
-      "versionCode": 7,
+      "versionCode": 8,
       "permissions": [],
       "adaptiveIcon": {
         "backgroundImage": "./assets/images/ic_launcher_background.png",
