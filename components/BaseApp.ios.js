@@ -1,15 +1,16 @@
 'use strict';
 
 import React from 'react';
-import { Text, View, SafeAreaView, StatusBar } from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 
-export default class BaseApp extends React.Component {
-    render() {
-        return (
-            <SafeAreaView style={{flex: 1}}>
-                <StatusBar barStyle='dark-content'></StatusBar>
-                {this.props.children}
-            </SafeAreaView>
-        );
-    }
+const BaseApp = ({ children, ...props }) => {
+    console.log(props)
+    return (
+        <SafeAreaView style={{flex: 1}} {...props}>
+            <StatusBar barStyle='dark-content' />
+            {children}
+        </SafeAreaView>
+    );
 }
+
+export default BaseApp;

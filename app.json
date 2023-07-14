@@ -17,6 +17,11 @@
         "backgroundImage": "./assets/images/ic_launcher_background.png",
         "foregroundImage": "./assets/images/ic_launcher_foreground.png"
       }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ca3f3d70-8d6b-11e9-a3fc-3fc00c9edfe3"
+      }
     }
   }
 }
