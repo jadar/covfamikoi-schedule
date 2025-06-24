@@ -4,18 +4,19 @@ import EventList from './EventList';
 import { ScrollView, ActivityIndicator, View } from 'react-native';
 import { connect } from 'react-redux';
 import { actionCreators } from '../reducers/eventList';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar } from '@rn-vui/base';
 
 Moment.locale('en');
 
 const mapStateToProps = state => {
-    // console.log("Mapping state: ");
+    // console.log("Mapping state: " + JSON.stringify(state));
     // console.log("Is loading: " + state.eventList.isLoading);
+    const { eventList } = state;
     return {
-        schedule: state.eventList.schedule,
-        isLoading: state.eventList.isLoading,
-        sections: state.eventList.sections,
-        search: state.eventList.search,
+        schedule: eventList.schedule,
+        isLoading: eventList.isLoading,
+        sections: eventList.sections,
+        search: eventList.search,
     };
 };
 

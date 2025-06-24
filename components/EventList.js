@@ -1,98 +1,89 @@
 "use strict";
 
-import React from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { Button, Text, View, SectionList, StyleSheet } from "react-native";
 import EventItem from "./EventItem";
 
-class EventList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const EventList = ({ sections = [], isLoading, reload, navigation }) => {
+  const sectionListRef = useRef(null);
 
-  async _onRefresh() {
-    this.setState({ isLoading: true });
-    await this.props.reload();
-  }
-
-  getItemIndexForHour(sections, hour) {
+  const getItemIndexForHour = useCallback((sections, hour) => {
     let i = 0;
     let j = 0;
     for (i = 0; i < sections.length; i++) {
-      let sectionData = sections[i].data;
+      const sectionData = sections[i].data;
       for (j = 0; j < sectionData.length; j++) {
-        let startDate = new Date(sectionData[j].start);
+        const startDate = new Date(sectionData[j].start);
         if (startDate >= hour) {
           return [i, j];
         }
       }
     }
-
     return [i - 1, j - 1];
-  }
+  }, []);
 
-  scrollToNow = () => {
-    let currentHour = new Date();
-    // currentHour.setMinutes(0, 0, 0);
+  const scrollToNow = useCallback(() => {
+    const currentHour = new Date();
+    const indices = getItemIndexForHour(sections, currentHour);
+    
+    if (sectionListRef.current) {
+      const pos = sectionListRef.current.props.stickySectionHeadersEnabled ? 1 : 0;
+      sectionListRef.current.scrollToLocation({
+        sectionIndex: indices[0],
+        itemIndex: indices[1] - pos,
+        viewPosition: 0,
+      });
+    }
+  }, [sections, getItemIndexForHour]);
 
-    const { sections } = this.props;
-    let indices = this.getItemIndexForHour(sections, currentHour);
+  const handleRefresh = useCallback(async () => {
+    await reload();
+  }, [reload]);
 
-    let pos = this.sectionListRef.props.stickySectionHeadersEnabled ? 1 : 0;
-    this.sectionListRef.scrollToLocation({
-      sectionIndex: indices[0],
-      itemIndex: indices[1] - pos,
-      viewPosition: 0,
-    });
-  };
+  const renderItem = useCallback(({ item }) => (
+    <EventItem item={item} navigation={navigation} />
+  ), [navigation]);
 
-  componentDidMount() {
-    const { navigation } = this.props;
+  const renderSectionHeader = useCallback(({ section: { title } }) => (
+    <View style={styles.sectionHeader}>
+      <Text style={styles.sectionHeaderTitle}>{title.toUpperCase()}</Text>
+    </View>
+  ), []);
+
+  const keyExtractor = useCallback((item, index) => `${item.id || item.title}-${index}`, []);
+
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Button onPress={() => this.scrollToNow()} title="Now" />
+        <Button onPress={scrollToNow} title="Now" />
       ),
     });
-  }
+  }, [navigation, scrollToNow]);
 
-  render() {
-    // console.log("render");
-    let sections = this.props.sections;
-    if (!sections) {
-      sections = [];
-    }
-
-    return (
-      <SectionList
-        renderItem={({ item }) => (
-          <EventItem item={item} navigation={this.props.navigation} />
-        )}
-        renderSectionHeader={this.renderSectionHeader}
-        SectionSeparatorComponent={Separator}
-        sections={sections}
-        keyExtractor={(item, index) => item + index}
-        initialNumToRender={200}
-        onRefresh={() => this._onRefresh()}
-        refreshing={this.props.isLoading}
-        style={{ backgroundColor: "#fff" }}
-        ref={(ref) => (this.sectionListRef = ref)}
-      />
-    );
-  }
-
-  renderSectionHeader({ section: { title } }) {
-    return (
-      <View style={styles.sectionHeader}>
-        <Text style={styles.sectionHeaderTitle}>{title.toUpperCase()}</Text>
-      </View>
-    );
-  }
-}
+  return (
+    <SectionList
+      ref={sectionListRef}
+      renderItem={renderItem}
+      renderSectionHeader={renderSectionHeader}
+      SectionSeparatorComponent={Separator}
+      sections={sections}
+      keyExtractor={keyExtractor}
+      initialNumToRender={200}
+      onRefresh={handleRefresh}
+      refreshing={isLoading}
+      style={styles.container}
+    />
+  );
+};
 
 export default EventList;
 
 const Separator = () => <View style={styles.sectionSeparator} />;
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+  },
   sectionHeader: {
     backgroundColor: "#f6f6f6",
   },

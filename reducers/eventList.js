@@ -1,40 +1,5 @@
 import Moment from 'moment';
-
-// The types of actions that you can dispatch to modify the state of the store
-export const types = {
-    RELOAD_EVENT_LIST_BEGAN: 'RELOAD_EVENT_LIST_BEGAN',
-    RELOAD_EVENT_LIST_FAILED: 'RELOAD_EVENT_LIST_FAILED',
-    RELOAD_EVENT_LIST: 'RELOAD_EVENT_LIST',
-    UPDATE_SEARCH_TERM: 'UPDATE_SEARCH_TERM',
-}
-
-// Helper functions to dispatch actions, optionally with payloads
-export const actionCreators = {
-    reloadEventsBegan: () => {
-        return {
-            type: types.RELOAD_EVENT_LIST_BEGAN,
-            payload: null
-        }
-    },
-    reloadEventsFinished: content => {
-        return {
-            type: types.RELOAD_EVENT_LIST, 
-            payload: content
-        }
-    },
-    reloadEventsFailed: content => {
-        return {
-            type: types.RELOAD_EVENT_LIST_FAILED, 
-            payload: null
-        }
-    },
-    updateSearch: searchTerm => {
-        return {
-            type: types.UPDATE_SEARCH_TERM,
-            payload: searchTerm,
-        }
-    }
-}
+import { createSlice } from '@reduxjs/toolkit';
 
 function sectionize(schedule) {
     let days = schedule.map(item => Moment(item.start).format('YYYY-MM-DD'));
@@ -75,67 +40,70 @@ function filterScheduleSections(sections, searchTerm) {
     return filteredSections;//filteredSections.filter(section => { section.length > 0 })
 }
 
-// Initial state of the store
-const initialState = {
-    unfilteredSections: [],
-    search: null,
-    schedule: [],
-    sections: [],
-    isLoading: true
+// Create slice using Redux Toolkit
+const eventListSlice = createSlice({
+    name: 'eventList',
+    initialState: { 
+        unfilteredSections: [],
+        sections: [],
+        isLoading: false,
+        search: null,
+        schedule: [],
+    },
+    reducers: {
+        reloadEventsBegan: (state) => {
+            state.isLoading = true;
+        },
+        reloadEventsFailed: (state) => {
+            state.isLoading = false;
+        },
+        reloadEventsFinished: (state, action) => {
+            const sections = sectionize(action.payload);
+            const filteredSections = filterScheduleSections(sections, state.search);
+            
+            state.unfilteredSections = sections;
+            state.sections = filteredSections;
+            state.isLoading = false;
+        },
+        updateSearch: (state, action) => {
+            const filteredSections = filterScheduleSections(state.unfilteredSections, action.payload);
+            state.sections = filteredSections;
+            state.search = action.payload;
+        }
+    },
+    extraReducers: (builder) => {
+        builder.addCase('persist/REHYDRATE', (state, action) => {
+            if (!action.payload || !action.payload.eventList) {
+                return state;
+            } else {
+                return {
+                    ...state,
+                    ...action.payload.eventList,
+                    isLoading: false
+                };
+            }
+        });
+    }
+});
+
+// Export actions
+export const { reloadEventsBegan, reloadEventsFailed, reloadEventsFinished, updateSearch } = eventListSlice.actions;
+
+// Export action creators for backward compatibility
+export const actionCreators = {
+    reloadEventsBegan,
+    reloadEventsFinished,
+    reloadEventsFailed,
+    updateSearch
 };
 
-// Function to handle actions and update the state of the store.
-// Notes:
-// - The reducer must return a new state object. It must never modify
-//   the state object. State objects should be treated as immutable.
-// - We set \`state\` to our \`initialState\` by default. Redux will
-//   call reducer() with no state on startup, and we are expected to
-//   return the initial state of the app in this case.
-export default function (state = initialState, action) {
-    const { type, payload } = action
+// Export types for backward compatibility
+export const types = {
+    RELOAD_EVENT_LIST_BEGAN: 'eventList/reloadEventsBegan',
+    RELOAD_EVENT_LIST_FAILED: 'eventList/reloadEventsFailed',
+    RELOAD_EVENT_LIST: 'eventList/reloadEventsFinished',
+    UPDATE_SEARCH_TERM: 'eventList/updateSearch',
+};
 
-    if (action.type === types.RELOAD_EVENT_LIST_BEGAN) {
-        return {
-            ...state,
-            isLoading: true
-        };
-    } else if (action.type === types.RELOAD_EVENT_LIST_FAILED) {
-        return {
-            ...state,
-            isLoading: false
-        };
-    } else if (action.type === types.RELOAD_EVENT_LIST) {
-        // let newState = computeState(payload, state.search);
-        let sections = sectionize(payload);
-        let filteredSections = filterScheduleSections(sections, state.search);
-
-        return {
-            ...state,
-            unfilteredSections: sections, // pass the original schedule through. sections is the only filtered one.
-            sections: filteredSections,
-            isLoading: false
-        };
-    } else if (action.type === types.UPDATE_SEARCH_TERM) {
-        // let newState = computeState(state.schedule, payload);
-        // console.log(state);
-        let filteredSections = filterScheduleSections(state.unfilteredSections, payload);
-        return {
-            ...state,
-            sections: filteredSections,
-            search: payload,
-        }
-    } else if (action.type == 'persist/REHYDRATE') {
-        if (!action.payload ||
-            !action.payload.eventList) {
-            return state;
-        } else {
-            return {
-                ...state,
-                ...action.payload.eventList,
-                isLoading: false 
-            };
-        }
-    }
-
-    return { ...state };
-}
+// Export the reducer
+export default eventListSlice.reducer;

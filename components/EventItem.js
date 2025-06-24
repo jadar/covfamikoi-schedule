@@ -3,7 +3,7 @@
 import React from 'react';
 import { Button, Text, View, StyleSheet } from 'react-native';
 import Moment from 'moment';
-import { ListItem } from 'react-native-elements';
+import { ListItem } from '@rn-vui/base';
 
 class EventItem extends React.PureComponent {
     constructor(props) {

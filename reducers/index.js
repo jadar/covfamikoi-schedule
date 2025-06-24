@@ -1,9 +1,10 @@
 "use strict";
 
-import { combineReducers } from "redux";
-
+import { configureStore } from '@reduxjs/toolkit'
 import eventList from "./eventList"
 
-export default {
-	eventList
-};
+export default configureStore({
+	reducer: {
+		eventList
+	}
+});

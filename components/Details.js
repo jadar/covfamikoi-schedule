@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Moment from 'moment';
-import { Icon } from 'react-native-elements'
+import { Icon } from '@rn-vui/base';
 
 
 export default class DetailsScreen extends React.Component {
