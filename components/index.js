@@ -31,9 +31,6 @@ class Schedule extends React.Component {
         dispatch(actionCreators.reloadEventsBegan());
 
         let url = 'https://1jptdh2d70.execute-api.us-east-1.amazonaws.com/default/covfamikoi-schedule'
-        // Eventually
-        // https://schedule.covfamikoiregistration.com/default/covfamikoi-schedule
-        // should work, but hasn't finished propogating
         return fetch(url)
             .then(response => response.json())
             .then(this.onFetch)

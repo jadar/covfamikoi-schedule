@@ -46,19 +46,13 @@ const App = () => {
   });
 
   const onLayoutRootView = useCallback(() => {
-    console.log("onLayoutRootView called");
-    if (error) {
-      console.log("Error loading fonts:", error);
-    }
     if (fontsLoaded) {
-      console.log("Fonts loaded successfully");
       SplashScreen.hide();
     }
   }, [fontsLoaded, error]);
 
   if (!fontsLoaded) {
-    console.log("Fonts not loaded yet");
-    return null; // or a loading indicator
+    return null; 
   }
 
   return (
