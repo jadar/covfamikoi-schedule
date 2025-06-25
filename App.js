@@ -4,6 +4,7 @@
 
 import { useCallback } from "react";
 import { Button, View } from "react-native";
+import { StatusBar } from 'expo-status-bar';
 
 /* redux */
 
@@ -57,6 +58,7 @@ const App = () => {
 
   return (
     <View onLayout={onLayoutRootView} style={{ flex: 1 }}>
+      <StatusBar style="dark" />
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen

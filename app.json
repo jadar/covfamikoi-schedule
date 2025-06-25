@@ -1,33 +1,41 @@
 {
-  "expo": {
-    "name": "Covfamikoi",
-    "icon": "./assets/images/icon.png",
-    "version": "2.1.3",
-    "slug": "covfamikoi-schedule",
-    "ios": {
-      "bundleIdentifier": "net.jadar.Covfamikoi",
-      "supportsTablet": true,
-      "buildNumber": "9",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
-    },
-    "android": {
-      "package": "net.jadar.CovfamikoiConference",
-      "versionCode": 12,
-      "permissions": [],
-      "adaptiveIcon": {
-        "backgroundImage": "./assets/images/ic_launcher_background.png",
-        "foregroundImage": "./assets/images/ic_launcher_foreground.png"
-      }
-    },
-    "extra": {
-      "eas": {
-        "projectId": "ca3f3d70-8d6b-11e9-a3fc-3fc00c9edfe3"
-      }
-    },
-    "plugins": [
-      "expo-font"
-    ]
-  }
+    "expo": {
+        "name": "Covfamikoi",
+        "icon": "./assets/images/icon.png",
+        "version": "2.1.3",
+        "slug": "covfamikoi-schedule",
+        "ios": {
+            "bundleIdentifier": "net.jadar.Covfamikoi",
+            "supportsTablet": true,
+            "buildNumber": "9",
+            "infoPlist": {
+                "ITSAppUsesNonExemptEncryption": false
+            }
+        },
+        "android": {
+            "package": "net.jadar.CovfamikoiConference",
+            "versionCode": 12,
+            "permissions": [],
+            "adaptiveIcon": {
+                "backgroundImage": "./assets/images/ic_launcher_background.png",
+                "foregroundImage": "./assets/images/ic_launcher_foreground.png"
+            }
+        },
+        "extra": {
+            "eas": {
+                "projectId": "ca3f3d70-8d6b-11e9-a3fc-3fc00c9edfe3"
+            }
+        },
+        "plugins": [
+            "expo-font",
+            [
+                "expo-splash-screen",
+                {
+                    "backgroundColor": "#ffffff",
+                    "image": "./assets/images/icon.png",
+                    "imageWidth": 200
+                }
+            ]
+        ]
+    }
 }
