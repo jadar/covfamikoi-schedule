@@ -14,7 +14,7 @@
         },
         "android": {
             "package": "net.jadar.CovfamikoiConference",
-            "versionCode": 12,
+            "versionCode": 13,
             "permissions": [],
             "adaptiveIcon": {
                 "backgroundImage": "./assets/images/ic_launcher_background.png",
